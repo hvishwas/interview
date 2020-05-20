@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class LRUCache<K, V> {
     private int maxCapacity;
-    private Map<K, Entry<K, V>> map = new HashMap<>();
+    private Map<K, Entry<K, V>> cache = new HashMap<>();
     private Entry<K, V> head;
     private Entry<K, V> tail;
     private int cacheHits;
@@ -19,12 +19,16 @@ public class LRUCache<K, V> {
 //                return size() > maxCapacity;
 //            }
 //        });
+        Thread thread = new Thread(new TTLHandler());
+        thread.setName("LRU Cache TTL Handler");
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public V get(K key) {
         Entry<K, V> entry = null;
         synchronized(this) {
-            entry = map.get(key);
+            entry = cache.get(key);
             if(entry == null) {
                 cacheMisses++;
                 return null;
@@ -39,13 +43,13 @@ public class LRUCache<K, V> {
 
     public void put(K key, V value) {
         synchronized (this) {
-            Entry<K, V> entry = map.get(key);
+            Entry<K, V> entry = cache.get(key);
             if (entry == null) {
-                if (map.size() == maxCapacity) {
+                if (cache.size() == maxCapacity) {
                     remove(head.key);
                 }
                 entry = new Entry<>(key, value);
-                map.put(key, entry);
+                cache.put(key, entry);
                 appendEntry(entry);
             } else {
                 removeEntry(entry);
@@ -57,14 +61,14 @@ public class LRUCache<K, V> {
 
     public void remove(K key) {
         synchronized (this) {
-            removeEntry(map.remove(key));
+            removeEntry(cache.remove(key));
         }
     }
 
     public void clear() {
         synchronized (this) {
             cacheHits = cacheMisses = 0;
-            map.clear();
+            cache.clear();
             head = tail = null;
         }
     }
@@ -108,6 +112,26 @@ public class LRUCache<K, V> {
         Entry(K key, V value) {
             this.key = key;
             this.value = value;
+        }
+    }
+
+    private void cleanUp (){
+
+    }
+    private class TTLHandler implements Runnable {
+//***************************** have a priority Queue ******************************
+        @Override
+        public void run() {
+            while(true) {
+                for(Map.Entry<K, Entry<K, V>> entry: cache.entrySet()) {
+
+                }
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
