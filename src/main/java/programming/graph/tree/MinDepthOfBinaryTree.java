@@ -36,6 +36,13 @@ class MinDepthOfBinaryTree {
         System.out.println("min depth BFS: " + findMinDepthOfBinaryTree_BFS(tree));
     }
 
+    /**
+     * A Better Solution is to do Level Order Traversal. While doing traversal, returns depth of the first encountered leaf node.
+     * Below is implementation of this solution.
+     *
+     * @param tree
+     * @return
+     */
     private static int findMinDepthOfBinaryTree_BFS(TreeNode tree) {
         if (tree == null) {
             return 0;
