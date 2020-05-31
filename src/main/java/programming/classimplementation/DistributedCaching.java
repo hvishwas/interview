@@ -166,11 +166,6 @@ public class DistributedCaching {
         Cache cache3 = new Cache("N", hashFunction);
         Cache cache4 = new Cache("X", hashFunction);
 
-        distributedCachingImp.add(server1);
-        distributedCachingImp.add(server2);
-        distributedCachingImp.add(server3);
-        distributedCachingImp.add(server4);
-
         distributedCachingImp.addCache(cache1);
         distributedCachingImp.addCache(cache2);
         distributedCachingImp.addCache(cache3);
