@@ -13,8 +13,10 @@ package programming.string;
  */
 class Anagram {
     public static void main(String[] args) {
-        String s1 = "b%fff1Aa#";
-        String s2 = "1f#%aBaff";
+        String s1 = "bb";
+        String s2 = "aa";
+//        String s1 = "b%fff1Aa#";
+//        String s2 = "1f#%aBaff";
 
         System.out.println(isAnagram(s1, s2));
     }
@@ -36,9 +38,9 @@ class Anagram {
 
     private static long updateResult(char c, long result) {
         if (c >= 65 && c <= 90) {
-            return result ^= 1 << (97 - c + 32);
+            return result ^= 1 << (c - 97 + 32);
         } else {
-            return result ^= 1 << 97 - c;
+            return result ^= 1 << c - 97;
         }
     }
 }
