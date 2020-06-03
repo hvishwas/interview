@@ -1,4 +1,4 @@
-package programming.classimplementation;
+package classimplementation;
 
 public class BinarySearchTree<T extends Comparable> {
 

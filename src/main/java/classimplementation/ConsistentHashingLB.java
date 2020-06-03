@@ -1,4 +1,4 @@
-package programming.classimplementation;
+package classimplementation;
 
 import java.util.SortedMap;
 import java.util.TreeMap;

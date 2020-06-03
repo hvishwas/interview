@@ -1,4 +1,4 @@
-package programming.classimplementation;
+package classimplementation;
 
 public class MinStack<T extends Comparable<T>> implements Stack<T> {
 
